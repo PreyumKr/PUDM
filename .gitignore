@@ -12,3 +12,4 @@ build/
 # Large data and generated files
 pointnet2/exp_pugan/
 pointnet2/test/
+Dataset/

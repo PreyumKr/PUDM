@@ -1,0 +1,1979 @@
+.
+|-- Chamfer3D
+|   |-- chamfer3D.cu
+|   |-- chamfer_cuda.cpp
+|   |-- dist_chamfer_3D.py
+|   `-- setup.py
+|-- Dataset
+|   |-- PU-GAN
+|   |   |-- Common
+|   |   |   |-- eulerangles.py
+|   |   |   |-- loss_utils.py
+|   |   |   |-- model_utils.py
+|   |   |   |-- ops.py
+|   |   |   |-- pc_util.py
+|   |   |   |-- point_operation.py
+|   |   |   `-- visu_utils.py
+|   |   |-- Docker
+|   |   |   |-- Dockerfile
+|   |   |   |-- README.md
+|   |   |   |-- compile.sh
+|   |   |   |-- tf_approxmatch_compile.sh
+|   |   |   |-- tf_grouping_compile.sh
+|   |   |   |-- tf_interpolate_compile.sh
+|   |   |   |-- tf_nndistance_compile.sh
+|   |   |   `-- tf_sampling_compile.sh
+|   |   |-- README.md
+|   |   |-- Upsampling
+|   |   |   |-- __init__.py
+|   |   |   |-- configs.py
+|   |   |   |-- data_loader.py
+|   |   |   |-- discriminator.py
+|   |   |   |-- generator.py
+|   |   |   `-- model.py
+|   |   |-- data
+|   |   |   |-- mesh
+|   |   |   |   |-- merged
+|   |   |   |   |   |-- 10014_dolphin_v2_max2011_it2.off
+|   |   |   |   |   |-- 11091_FemaleHead_v4.off
+|   |   |   |   |   |-- 11499_Elephant_v2.off
+|   |   |   |   |   |-- 11503_PolarBear_V2_FINAL.off
+|   |   |   |   |   |-- 11509_Panda_v4.off
+|   |   |   |   |   |-- 11559_Cooked_Turkey_v1_l3.off
+|   |   |   |   |   |-- 12328_Statue_v1_L2.off
+|   |   |   |   |   |-- 12939_Stone_Chess_King_Side_A_V2_l1.off
+|   |   |   |   |   |-- 12940_Stone_Chess_Queen_Side_A_V2_l1.off
+|   |   |   |   |   |-- 12941_Stone_Chess_Rook_Side_A_V2_l1.off
+|   |   |   |   |   |-- 12942_Stone_Chess_Bishop_V2_l1.off
+|   |   |   |   |   |-- 12943_Stone_Chess_Knight_Side_A_v2_l1.off
+|   |   |   |   |   |-- 13172_SmallCup_v1_NEW.off
+|   |   |   |   |   |-- 13180_ConcreteDogStatue_v1_NEW.off
+|   |   |   |   |   |-- 13770_Tiger_V1.off
+|   |   |   |   |   |-- 14583_fig_dogFrenchBulldog_v1.off
+|   |   |   |   |   |-- 15227_DisposableCamera_v1_NEW.off
+|   |   |   |   |   |-- 15236_Backpack.off
+|   |   |   |   |   |-- 15923_HybridCreature_Gorilla_v1new.off
+|   |   |   |   |   |-- 16079_bust_Einstein_v1.off
+|   |   |   |   |   |-- 17256_Space_Shuttle_Endeavour_v1_NEW.off
+|   |   |   |   |   |-- 17282_SprayBottle_v1.off
+|   |   |   |   |   |-- AncientTurtl_aligned.off
+|   |   |   |   |   |-- Cute\ Darth\ Vader.off
+|   |   |   |   |   |-- Gramme_aligned.off
+|   |   |   |   |   |-- Icosahedron.off
+|   |   |   |   |   |-- Joker.off
+|   |   |   |   |   |-- LEGO_Man.off
+|   |   |   |   |   |-- Mario_20170209.off
+|   |   |   |   |   |-- Minions\ Carl.off
+|   |   |   |   |   |-- NENE-PATO_aligned.off
+|   |   |   |   |   |-- Pyramid.off
+|   |   |   |   |   |-- RHINO.off
+|   |   |   |   |   |-- SubTool-0-11417966_aligned.off
+|   |   |   |   |   |-- ange6_aligned.off
+|   |   |   |   |   |-- angel2_aligned.off
+|   |   |   |   |   |-- angel3_aligned.off
+|   |   |   |   |   |-- angel4_aligned.off
+|   |   |   |   |   |-- armadillo.off
+|   |   |   |   |   |-- big_girl.off
+|   |   |   |   |   |-- bird_water_aligned.off
+|   |   |   |   |   |-- block.off
+|   |   |   |   |   |-- boy01.off
+|   |   |   |   |   |-- boy02.off
+|   |   |   |   |   |-- buddha_sit_aligned.off
+|   |   |   |   |   |-- bumpy_torus.off
+|   |   |   |   |   |-- bunny.off
+|   |   |   |   |   |-- cad.off
+|   |   |   |   |   |-- camel.off
+|   |   |   |   |   |-- camera_aligned.off
+|   |   |   |   |   |-- casting.off
+|   |   |   |   |   |-- ccylinder.off
+|   |   |   |   |   |-- chair.off
+|   |   |   |   |   |-- chairman_aligned.off
+|   |   |   |   |   |-- charite_aligned.off
+|   |   |   |   |   |-- cheval_aligned.off
+|   |   |   |   |   |-- child.off
+|   |   |   |   |   |-- chinese_lion.off
+|   |   |   |   |   |-- compressor_aligned.off
+|   |   |   |   |   |-- cone.off
+|   |   |   |   |   |-- coverrear_Lp.off
+|   |   |   |   |   |-- cow.off
+|   |   |   |   |   |-- cup.off
+|   |   |   |   |   |-- david.off
+|   |   |   |   |   |-- dino.off
+|   |   |   |   |   |-- dog_wing_aligned.off
+|   |   |   |   |   |-- dragon_aligned.off
+|   |   |   |   |   |-- dragon_cup_aligned.off
+|   |   |   |   |   |-- drunkard_aligned.off
+|   |   |   |   |   |-- duck.off
+|   |   |   |   |   |-- egea.off
+|   |   |   |   |   |-- eight.off
+|   |   |   |   |   |-- elephant.off
+|   |   |   |   |   |-- elk.off
+|   |   |   |   |   |-- ellipsoid.off
+|   |   |   |   |   |-- engine_aligned.off
+|   |   |   |   |   |-- eros.off
+|   |   |   |   |   |-- fandisk.off
+|   |   |   |   |   |-- fish.off
+|   |   |   |   |   |-- focal-octa.off
+|   |   |   |   |   |-- fox_skull_aligned.off
+|   |   |   |   |   |-- gargoyle.off
+|   |   |   |   |   |-- genus3.off
+|   |   |   |   |   |-- girl.off
+|   |   |   |   |   |-- hand.off
+|   |   |   |   |   |-- helmet_aligned.off
+|   |   |   |   |   |-- hercules_aligned.off
+|   |   |   |   |   |-- horse.off
+|   |   |   |   |   |-- joint.off
+|   |   |   |   |   |-- julius.off
+|   |   |   |   |   |-- kitten.off
+|   |   |   |   |   |-- lion_ball_aligned.off
+|   |   |   |   |   |-- m1485.off
+|   |   |   |   |   |-- m1486.off
+|   |   |   |   |   |-- m1606.off
+|   |   |   |   |   |-- m1610.off
+|   |   |   |   |   |-- m1741.off
+|   |   |   |   |   |-- m32.off
+|   |   |   |   |   |-- m329.off
+|   |   |   |   |   |-- m333.off
+|   |   |   |   |   |-- m355.off
+|   |   |   |   |   |-- m369.off
+|   |   |   |   |   |-- m504.off
+|   |   |   |   |   |-- m60.off
+|   |   |   |   |   |-- m76.off
+|   |   |   |   |   |-- m796.off
+|   |   |   |   |   |-- m88.off
+|   |   |   |   |   |-- m90.off
+|   |   |   |   |   |-- m92.off
+|   |   |   |   |   |-- manstatue_aligned.off
+|   |   |   |   |   |-- moai.off
+|   |   |   |   |   |-- modello_buddha_aligned.off
+|   |   |   |   |   |-- nicolo.off
+|   |   |   |   |   |-- octa-flower.off
+|   |   |   |   |   |-- pearl_dragon_aligned.off
+|   |   |   |   |   |-- pierrot.off
+|   |   |   |   |   |-- pig.off
+|   |   |   |   |   |-- pulley.off
+|   |   |   |   |   |-- pyramid-1.off
+|   |   |   |   |   |-- retinal.off
+|   |   |   |   |   |-- rolling_stage.off
+|   |   |   |   |   |-- saiya_aligned.off
+|   |   |   |   |   |-- screwdriver.off
+|   |   |   |   |   |-- sharp_sphere.off
+|   |   |   |   |   |-- snow_head_aligned.off
+|   |   |   |   |   |-- sonic.off
+|   |   |   |   |   |-- special_cube.off
+|   |   |   |   |   |-- star\ copy.off
+|   |   |   |   |   |-- star.off
+|   |   |   |   |   |-- statue_bronze_aligned.off
+|   |   |   |   |   |-- statue_deer_lowboy_aligned.off
+|   |   |   |   |   |-- statue_dragon_aligned.off
+|   |   |   |   |   |-- statue_luyu_aligned.off
+|   |   |   |   |   |-- statue_neptune_aligned.off
+|   |   |   |   |   |-- statue_old_aligned.off
+|   |   |   |   |   |-- statue_ramesses_aligned.off
+|   |   |   |   |   |-- statue_rider_aligned.off
+|   |   |   |   |   |-- statue_rome_aligned.off
+|   |   |   |   |   |-- three_child_aligned.off
+|   |   |   |   |   |-- transmission_aligned.off
+|   |   |   |   |   |-- turbine_Lp.off
+|   |   |   |   |   |-- turkana_boy_aligned.off
+|   |   |   |   |   |-- twirl.off
+|   |   |   |   |   |-- two_child_aligned.off
+|   |   |   |   |   |-- vase_lion_aligned.off
+|   |   |   |   |   |-- vase_pot_aligned.off
+|   |   |   |   |   `-- vaselion.off
+|   |   |   |   `-- test
+|   |   |   |       |-- 11509_Panda_v4.off
+|   |   |   |       |-- 13770_Tiger_V1.off
+|   |   |   |       |-- Gramme_aligned.off
+|   |   |   |       |-- camel.off
+|   |   |   |       |-- casting.off
+|   |   |   |       |-- chair.off
+|   |   |   |       |-- coverrear_Lp.off
+|   |   |   |       |-- cow.off
+|   |   |   |       |-- duck.off
+|   |   |   |       |-- eight.off
+|   |   |   |       |-- elephant.off
+|   |   |   |       |-- elk.off
+|   |   |   |       |-- fandisk.off
+|   |   |   |       |-- genus3.off
+|   |   |   |       |-- horse.off
+|   |   |   |       |-- kitten.off
+|   |   |   |       |-- m32.off
+|   |   |   |       |-- m329.off
+|   |   |   |       |-- m333.off
+|   |   |   |       |-- m355.off
+|   |   |   |       |-- m60.off
+|   |   |   |       |-- m88.off
+|   |   |   |       |-- pig.off
+|   |   |   |       |-- star.off
+|   |   |   |       |-- statue_dragon_aligned.off
+|   |   |   |       |-- statue_ramesses_aligned.off
+|   |   |   |       `-- statue_rome_aligned.off
+|   |   |   |-- test
+|   |   |   |   |-- Icosahedron.off
+|   |   |   |   |-- Icosahedron.xyz
+|   |   |   |   |-- fandisk.off
+|   |   |   |   |-- fandisk.xyz
+|   |   |   |   `-- output
+|   |   |   |       |-- Icosahedron.xyz
+|   |   |   |       `-- fandisk.xyz
+|   |   |   `-- train
+|   |   |       `-- PUGAN_poisson_256_poisson_1024.h5
+|   |   |-- evaluate.py
+|   |   |-- evaluation_code
+|   |   |   |-- CMakeFiles
+|   |   |   |   |-- 3.11.1
+|   |   |   |   |   |-- CMakeCCompiler.cmake
+|   |   |   |   |   |-- CMakeCXXCompiler.cmake
+|   |   |   |   |   |-- CMakeDetermineCompilerABI_C.bin
+|   |   |   |   |   |-- CMakeDetermineCompilerABI_CXX.bin
+|   |   |   |   |   |-- CMakeSystem.cmake
+|   |   |   |   |   |-- CompilerIdC
+|   |   |   |   |   |   |-- CMakeCCompilerId.c
+|   |   |   |   |   |   `-- a.out
+|   |   |   |   |   `-- CompilerIdCXX
+|   |   |   |   |       |-- CMakeCXXCompilerId.cpp
+|   |   |   |   |       `-- a.out
+|   |   |   |   |-- 3.5.1
+|   |   |   |   |   |-- CMakeCCompiler.cmake
+|   |   |   |   |   |-- CMakeCXXCompiler.cmake
+|   |   |   |   |   |-- CMakeDetermineCompilerABI_C.bin
+|   |   |   |   |   |-- CMakeDetermineCompilerABI_CXX.bin
+|   |   |   |   |   |-- CMakeSystem.cmake
+|   |   |   |   |   |-- CompilerIdC
+|   |   |   |   |   |   |-- CMakeCCompilerId.c
+|   |   |   |   |   |   `-- a.out
+|   |   |   |   |   `-- CompilerIdCXX
+|   |   |   |   |       |-- CMakeCXXCompilerId.cpp
+|   |   |   |   |       `-- a.out
+|   |   |   |   |-- 3.9.2
+|   |   |   |   |   |-- CMakeCCompiler.cmake
+|   |   |   |   |   |-- CMakeCXXCompiler.cmake
+|   |   |   |   |   |-- CMakeDetermineCompilerABI_C.bin
+|   |   |   |   |   |-- CMakeDetermineCompilerABI_CXX.bin
+|   |   |   |   |   |-- CMakeSystem.cmake
+|   |   |   |   |   |-- CompilerIdC
+|   |   |   |   |   |   |-- CMakeCCompilerId.c
+|   |   |   |   |   |   `-- a.out
+|   |   |   |   |   `-- CompilerIdCXX
+|   |   |   |   |       |-- CMakeCXXCompilerId.cpp
+|   |   |   |   |       `-- a.out
+|   |   |   |   |-- CMakeDirectoryInformation.cmake
+|   |   |   |   |-- CMakeOutput.log
+|   |   |   |   |-- Continuous.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousBuild.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousConfigure.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousCoverage.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousMemCheck.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousStart.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousSubmit.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousTest.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ContinuousUpdate.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- Experimental.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalBuild.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalConfigure.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalCoverage.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalMemCheck.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalStart.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalSubmit.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalTest.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- ExperimentalUpdate.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- FindOpenMP
+|   |   |   |   |   |-- OpenMPCheckVersion.c
+|   |   |   |   |   |-- OpenMPCheckVersion.cpp
+|   |   |   |   |   |-- OpenMPTryFlag.c
+|   |   |   |   |   |-- OpenMPTryFlag.cpp
+|   |   |   |   |   |-- ompver_C.bin
+|   |   |   |   |   `-- ompver_CXX.bin
+|   |   |   |   |-- Makefile.cmake
+|   |   |   |   |-- Makefile2
+|   |   |   |   |-- Nightly.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyBuild.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyConfigure.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyCoverage.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyMemCheck.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyMemoryCheck.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyStart.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlySubmit.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyTest.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- NightlyUpdate.dir
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- cmake.check_cache
+|   |   |   |   |-- evaluation.dir
+|   |   |   |   |   |-- CXX.includecache
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   |-- depend.internal
+|   |   |   |   |   |-- depend.make
+|   |   |   |   |   |-- evaluation.cpp.o
+|   |   |   |   |   |-- flags.make
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- evaluation2.dir
+|   |   |   |   |   |-- CXX.includecache
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   |-- depend.internal
+|   |   |   |   |   |-- depend.make
+|   |   |   |   |   |-- evaluation2.cpp.o
+|   |   |   |   |   |-- flags.make
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- evaluation3.dir
+|   |   |   |   |   |-- CXX.includecache
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   |-- depend.internal
+|   |   |   |   |   |-- depend.make
+|   |   |   |   |   |-- evaluation3.cpp.o
+|   |   |   |   |   |-- flags.make
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- evaluation_s.dir
+|   |   |   |   |   |-- CXX.includecache
+|   |   |   |   |   |-- DependInfo.cmake
+|   |   |   |   |   |-- build.make
+|   |   |   |   |   |-- cmake_clean.cmake
+|   |   |   |   |   |-- depend.internal
+|   |   |   |   |   |-- depend.make
+|   |   |   |   |   |-- evaluation_s.cpp.o
+|   |   |   |   |   |-- flags.make
+|   |   |   |   |   `-- progress.make
+|   |   |   |   |-- feature_tests.bin
+|   |   |   |   |-- feature_tests.c
+|   |   |   |   |-- feature_tests.cxx
+|   |   |   |   `-- progress.marks
+|   |   |   |-- CMakeLists.txt
+|   |   |   |-- CTestTestfile.cmake
+|   |   |   |-- DartConfiguration.tcl
+|   |   |   |-- Icosahedron.off
+|   |   |   |-- Icosahedron.xyz
+|   |   |   |-- Makefile
+|   |   |   |-- __init__.py
+|   |   |   |-- cmake_install.cmake
+|   |   |   |-- evaluation
+|   |   |   `-- evaluation.cpp
+|   |   |-- pu_gan.py
+|   |   `-- tf_ops
+|   |       |-- __init__.py
+|   |       |-- approxmatch
+|   |       |   |-- __init__.py
+|   |       |   |-- __pycache__
+|   |       |   |   |-- __init__.cpython-36.pyc
+|   |       |   |   `-- tf_approxmatch.cpython-36.pyc
+|   |       |   |-- tf_approxmatch.cpp
+|   |       |   |-- tf_approxmatch.py
+|   |       |   |-- tf_approxmatch_compile\ copy.sh
+|   |       |   |-- tf_approxmatch_compile.sh
+|   |       |   |-- tf_approxmatch_g.cu
+|   |       |   |-- tf_approxmatch_g.cu.o
+|   |       |   `-- tf_approxmatch_so.so
+|   |       |-- grouping
+|   |       |   |-- __init__.py
+|   |       |   |-- __pycache__
+|   |       |   |   |-- __init__.cpython-36.pyc
+|   |       |   |   `-- tf_grouping.cpython-36.pyc
+|   |       |   |-- compile.sh
+|   |       |   |-- query_ball_point.cpp
+|   |       |   |-- query_ball_point.cu
+|   |       |   |-- query_ball_point_block.cu
+|   |       |   |-- query_ball_point_grid.cu
+|   |       |   |-- selection_sort.cpp
+|   |       |   |-- selection_sort.cu
+|   |       |   |-- selection_sort_const.cu
+|   |       |   |-- test_knn.py
+|   |       |   |-- tf_grouping.cpp
+|   |       |   |-- tf_grouping.py
+|   |       |   |-- tf_grouping_compile.sh
+|   |       |   |-- tf_grouping_g.cu
+|   |       |   |-- tf_grouping_g.cu.o
+|   |       |   |-- tf_grouping_op_test.py
+|   |       |   `-- tf_grouping_so.so
+|   |       |-- interpolation
+|   |       |   |-- __init__.py
+|   |       |   |-- __pycache__
+|   |       |   |   |-- __init__.cpython-36.pyc
+|   |       |   |   `-- tf_interpolate.cpython-36.pyc
+|   |       |   |-- interpolate.cpp
+|   |       |   |-- tf_interpolate.cpp
+|   |       |   |-- tf_interpolate.py
+|   |       |   |-- tf_interpolate_compile.sh
+|   |       |   |-- tf_interpolate_op_test.py
+|   |       |   |-- tf_interpolate_so.so
+|   |       |   `-- visu_interpolation.py
+|   |       |-- nn_distance
+|   |       |   |-- README.md
+|   |       |   |-- __init__.py
+|   |       |   |-- __pycache__
+|   |       |   |   |-- __init__.cpython-36.pyc
+|   |       |   |   `-- tf_nndistance.cpython-36.pyc
+|   |       |   |-- tf_nndistance.cpp
+|   |       |   |-- tf_nndistance.py
+|   |       |   |-- tf_nndistance_compile.sh
+|   |       |   |-- tf_nndistance_cpu.py
+|   |       |   |-- tf_nndistance_g.cu
+|   |       |   |-- tf_nndistance_g.cu.o
+|   |       |   `-- tf_nndistance_so.so
+|   |       |-- renderball
+|   |       |   |-- compile_render_balls_so.sh
+|   |       |   |-- render_balls_so.cpp
+|   |       |   `-- render_balls_so.so
+|   |       `-- sampling
+|   |           |-- 1.pkl
+|   |           |-- __init__.py
+|   |           |-- __pycache__
+|   |           |   |-- __init__.cpython-36.pyc
+|   |           |   `-- tf_sampling.cpython-36.pyc
+|   |           |-- tf_sampling.cpp
+|   |           |-- tf_sampling.py
+|   |           |-- tf_sampling_compile.sh
+|   |           |-- tf_sampling_g.cu
+|   |           |-- tf_sampling_g.cu.o
+|   |           `-- tf_sampling_so.so
+|   `-- PU-GCN
+|       |-- Common
+|       |   |-- eulerangles.py
+|       |   |-- loss_utils.py
+|       |   |-- model_utils.py
+|       |   |-- ops.py
+|       |   |-- pc_util.py
+|       |   |-- point_operation.py
+|       |   |-- pointnet_util.py
+|       |   `-- visu_utils.py
+|       |-- README.md
+|       |-- Upsampling
+|       |   |-- __init__.py
+|       |   |-- configs.py
+|       |   |-- data_loader.py
+|       |   |-- discriminator.py
+|       |   |-- generator.py
+|       |   `-- model.py
+|       |-- data
+|       |   |-- test
+|       |   |   |-- input_1024
+|       |   |   |   |-- gt_4096
+|       |   |   |   |   |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |   |   |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |   |   |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |   |   |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |   |   |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |   |   |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |   |   |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |   |   |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |   |   |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |   |   |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |   |   |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |   |   |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |   |   |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |   |   |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |   |   |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |   |   |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |   |   |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |   |   |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |   |   |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |   |   |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |   |   |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |   |   |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |   |   |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |   |   |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |   |   |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |   |   |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |   |   |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |   |   |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |   |   |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |   |   |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |   |   |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |   |   |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |   |   |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |   |   |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |   |   |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |   |   |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |   |   |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |   |   |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |   |   |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |   |   |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |   |   |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |   |   |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |   |   |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |   |   |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |   |   |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |   |   |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |   |   |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |   |   |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |   |   |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |   |   |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |   |   |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |   |   |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |   |   |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |   |   |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |   |   |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |   |   |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |   |   |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |   |   |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |   |   |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |   |   |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |   |   |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |   |   |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |   |   |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |   |   |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |   |   |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |   |   |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |   |   |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |   |   |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |   |   |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |   |   |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |   |   |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |   |   |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |   |   |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |   |   |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |   |   |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |   |   |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |   |   |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |   |   |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |   |   |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |   |   |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |   |   |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |   |   |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |   |   |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |   |   |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |   |   |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |   |   |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |   |   |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |   |   |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |   |   |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |   |   |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |   |   |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |   |   |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |   |   |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |   |   |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |   |   |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |   |   |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |   |   |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |   |   |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |   |   |-- 11509_Panda_v4.xyz
+|       |   |   |   |   |-- 13770_Tiger_V1.xyz
+|       |   |   |   |   |-- Gramme_aligned.xyz
+|       |   |   |   |   |-- camel.xyz
+|       |   |   |   |   |-- casting.xyz
+|       |   |   |   |   |-- chair.xyz
+|       |   |   |   |   |-- coverrear_Lp.xyz
+|       |   |   |   |   |-- cow.xyz
+|       |   |   |   |   |-- duck.xyz
+|       |   |   |   |   |-- eight.xyz
+|       |   |   |   |   |-- elephant.xyz
+|       |   |   |   |   |-- elk.xyz
+|       |   |   |   |   |-- fandisk.xyz
+|       |   |   |   |   |-- genus3.xyz
+|       |   |   |   |   |-- horse.xyz
+|       |   |   |   |   |-- kitten.xyz
+|       |   |   |   |   |-- m32.xyz
+|       |   |   |   |   |-- m329.xyz
+|       |   |   |   |   |-- m333.xyz
+|       |   |   |   |   |-- m355.xyz
+|       |   |   |   |   |-- m60.xyz
+|       |   |   |   |   |-- m88.xyz
+|       |   |   |   |   |-- pig.xyz
+|       |   |   |   |   |-- star.xyz
+|       |   |   |   |   |-- statue_dragon_aligned.xyz
+|       |   |   |   |   |-- statue_ramesses_aligned.xyz
+|       |   |   |   |   `-- statue_rome_aligned.xyz
+|       |   |   |   `-- input_1024
+|       |   |   |       |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |       |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |       |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |       |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |       |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |       |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |       |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |       |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |       |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |       |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |       |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |       |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |       |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |       |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |       |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |       |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |       |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |       |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |       |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |       |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |       |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |       |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |       |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |       |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |       |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |       |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |       |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |       |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |       |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |       |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |       |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |       |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |       |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |       |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |       |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |       |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |       |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |       |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |       |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |       |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |       |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |       |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |       |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |       |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |       |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |       |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |       |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |       |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |       |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |       |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |       |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |       |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |       |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |       |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |       |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |       |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |       |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |       |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |       |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |       |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |       |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |       |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |       |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |       |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |       |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |       |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |       |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |       |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |       |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |       |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |       |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |       |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |       |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |       |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |       |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |       |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |       |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |       |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |       |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |       |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |       |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |       |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |       |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |       |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |       |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |       |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |       |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |       |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |       |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |       |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |       |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |       |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |       |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |       |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |       |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |       |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |       |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |       |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |       |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |       |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |       |-- 11509_Panda_v4.xyz
+|       |   |   |       |-- 13770_Tiger_V1.xyz
+|       |   |   |       |-- Gramme_aligned.xyz
+|       |   |   |       |-- camel.xyz
+|       |   |   |       |-- casting.xyz
+|       |   |   |       |-- chair.xyz
+|       |   |   |       |-- coverrear_Lp.xyz
+|       |   |   |       |-- cow.xyz
+|       |   |   |       |-- duck.xyz
+|       |   |   |       |-- eight.xyz
+|       |   |   |       |-- elephant.xyz
+|       |   |   |       |-- elk.xyz
+|       |   |   |       |-- fandisk.xyz
+|       |   |   |       |-- genus3.xyz
+|       |   |   |       |-- horse.xyz
+|       |   |   |       |-- kitten.xyz
+|       |   |   |       |-- m32.xyz
+|       |   |   |       |-- m329.xyz
+|       |   |   |       |-- m333.xyz
+|       |   |   |       |-- m355.xyz
+|       |   |   |       |-- m60.xyz
+|       |   |   |       |-- m88.xyz
+|       |   |   |       |-- pig.xyz
+|       |   |   |       |-- star.xyz
+|       |   |   |       |-- statue_dragon_aligned.xyz
+|       |   |   |       |-- statue_ramesses_aligned.xyz
+|       |   |   |       `-- statue_rome_aligned.xyz
+|       |   |   |-- input_2048
+|       |   |   |   |-- gt_8192
+|       |   |   |   |   |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |   |   |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |   |   |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |   |   |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |   |   |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |   |   |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |   |   |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |   |   |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |   |   |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |   |   |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |   |   |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |   |   |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |   |   |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |   |   |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |   |   |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |   |   |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |   |   |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |   |   |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |   |   |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |   |   |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |   |   |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |   |   |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |   |   |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |   |   |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |   |   |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |   |   |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |   |   |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |   |   |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |   |   |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |   |   |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |   |   |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |   |   |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |   |   |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |   |   |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |   |   |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |   |   |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |   |   |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |   |   |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |   |   |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |   |   |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |   |   |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |   |   |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |   |   |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |   |   |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |   |   |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |   |   |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |   |   |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |   |   |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |   |   |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |   |   |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |   |   |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |   |   |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |   |   |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |   |   |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |   |   |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |   |   |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |   |   |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |   |   |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |   |   |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |   |   |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |   |   |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |   |   |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |   |   |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |   |   |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |   |   |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |   |   |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |   |   |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |   |   |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |   |   |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |   |   |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |   |   |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |   |   |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |   |   |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |   |   |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |   |   |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |   |   |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |   |   |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |   |   |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |   |   |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |   |   |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |   |   |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |   |   |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |   |   |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |   |   |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |   |   |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |   |   |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |   |   |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |   |   |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |   |   |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |   |   |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |   |   |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |   |   |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |   |   |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |   |   |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |   |   |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |   |   |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |   |   |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |   |   |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |   |   |-- 11509_Panda_v4.xyz
+|       |   |   |   |   |-- 13770_Tiger_V1.xyz
+|       |   |   |   |   |-- Gramme_aligned.xyz
+|       |   |   |   |   |-- camel.xyz
+|       |   |   |   |   |-- casting.xyz
+|       |   |   |   |   |-- chair.xyz
+|       |   |   |   |   |-- coverrear_Lp.xyz
+|       |   |   |   |   |-- cow.xyz
+|       |   |   |   |   |-- duck.xyz
+|       |   |   |   |   |-- eight.xyz
+|       |   |   |   |   |-- elephant.xyz
+|       |   |   |   |   |-- elk.xyz
+|       |   |   |   |   |-- fandisk.xyz
+|       |   |   |   |   |-- genus3.xyz
+|       |   |   |   |   |-- horse.xyz
+|       |   |   |   |   |-- kitten.xyz
+|       |   |   |   |   |-- m32.xyz
+|       |   |   |   |   |-- m329.xyz
+|       |   |   |   |   |-- m333.xyz
+|       |   |   |   |   |-- m355.xyz
+|       |   |   |   |   |-- m60.xyz
+|       |   |   |   |   |-- m88.xyz
+|       |   |   |   |   |-- pig.xyz
+|       |   |   |   |   |-- star.xyz
+|       |   |   |   |   |-- statue_dragon_aligned.xyz
+|       |   |   |   |   |-- statue_ramesses_aligned.xyz
+|       |   |   |   |   `-- statue_rome_aligned.xyz
+|       |   |   |   `-- input_2048
+|       |   |   |       |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |       |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |       |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |       |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |       |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |       |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |       |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |       |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |       |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |       |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |       |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |       |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |       |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |       |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |       |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |       |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |       |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |       |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |       |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |       |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |       |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |       |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |       |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |       |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |       |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |       |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |       |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |       |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |       |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |       |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |       |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |       |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |       |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |       |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |       |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |       |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |       |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |       |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |       |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |       |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |       |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |       |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |       |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |       |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |       |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |       |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |       |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |       |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |       |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |       |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |       |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |       |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |       |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |       |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |       |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |       |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |       |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |       |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |       |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |       |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |       |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |       |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |       |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |       |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |       |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |       |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |       |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |       |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |       |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |       |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |       |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |       |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |       |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |       |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |       |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |       |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |       |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |       |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |       |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |       |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |       |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |       |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |       |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |       |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |       |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |       |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |       |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |       |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |       |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |       |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |       |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |       |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |       |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |       |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |       |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |       |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |       |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |       |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |       |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |       |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |       |-- 11509_Panda_v4.xyz
+|       |   |   |       |-- 13770_Tiger_V1.xyz
+|       |   |   |       |-- Gramme_aligned.xyz
+|       |   |   |       |-- camel.xyz
+|       |   |   |       |-- casting.xyz
+|       |   |   |       |-- chair.xyz
+|       |   |   |       |-- coverrear_Lp.xyz
+|       |   |   |       |-- cow.xyz
+|       |   |   |       |-- duck.xyz
+|       |   |   |       |-- eight.xyz
+|       |   |   |       |-- elephant.xyz
+|       |   |   |       |-- elk.xyz
+|       |   |   |       |-- fandisk.xyz
+|       |   |   |       |-- genus3.xyz
+|       |   |   |       |-- horse.xyz
+|       |   |   |       |-- kitten.xyz
+|       |   |   |       |-- m32.xyz
+|       |   |   |       |-- m329.xyz
+|       |   |   |       |-- m333.xyz
+|       |   |   |       |-- m355.xyz
+|       |   |   |       |-- m60.xyz
+|       |   |   |       |-- m88.xyz
+|       |   |   |       |-- pig.xyz
+|       |   |   |       |-- star.xyz
+|       |   |   |       |-- statue_dragon_aligned.xyz
+|       |   |   |       |-- statue_ramesses_aligned.xyz
+|       |   |   |       `-- statue_rome_aligned.xyz
+|       |   |   |-- input_256
+|       |   |   |   |-- gt_1024
+|       |   |   |   |   |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |   |   |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |   |   |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |   |   |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |   |   |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |   |   |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |   |   |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |   |   |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |   |   |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |   |   |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |   |   |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |   |   |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |   |   |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |   |   |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |   |   |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |   |   |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |   |   |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |   |   |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |   |   |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |   |   |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |   |   |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |   |   |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |   |   |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |   |   |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |   |   |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |   |   |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |   |   |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |   |   |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |   |   |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |   |   |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |   |   |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |   |   |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |   |   |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |   |   |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |   |   |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |   |   |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |   |   |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |   |   |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |   |   |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |   |   |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |   |   |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |   |   |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |   |   |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |   |   |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |   |   |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |   |   |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |   |   |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |   |   |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |   |   |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |   |   |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |   |   |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |   |   |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |   |   |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |   |   |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |   |   |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |   |   |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |   |   |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |   |   |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |   |   |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |   |   |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |   |   |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |   |   |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |   |   |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |   |   |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |   |   |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |   |   |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |   |   |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |   |   |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |   |   |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |   |   |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |   |   |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |   |   |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |   |   |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |   |   |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |   |   |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |   |   |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |   |   |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |   |   |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |   |   |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |   |   |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |   |   |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |   |   |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |   |   |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |   |   |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |   |   |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |   |   |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |   |   |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |   |   |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |   |   |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |   |   |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |   |   |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |   |   |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |   |   |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |   |   |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |   |   |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |   |   |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |   |   |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |   |   |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |   |   |-- 11509_Panda_v4.xyz
+|       |   |   |   |   |-- 13770_Tiger_V1.xyz
+|       |   |   |   |   |-- Gramme_aligned.xyz
+|       |   |   |   |   |-- camel.xyz
+|       |   |   |   |   |-- casting.xyz
+|       |   |   |   |   |-- chair.xyz
+|       |   |   |   |   |-- coverrear_Lp.xyz
+|       |   |   |   |   |-- cow.xyz
+|       |   |   |   |   |-- duck.xyz
+|       |   |   |   |   |-- eight.xyz
+|       |   |   |   |   |-- elephant.xyz
+|       |   |   |   |   |-- elk.xyz
+|       |   |   |   |   |-- fandisk.xyz
+|       |   |   |   |   |-- genus3.xyz
+|       |   |   |   |   |-- horse.xyz
+|       |   |   |   |   |-- kitten.xyz
+|       |   |   |   |   |-- m32.xyz
+|       |   |   |   |   |-- m329.xyz
+|       |   |   |   |   |-- m333.xyz
+|       |   |   |   |   |-- m355.xyz
+|       |   |   |   |   |-- m60.xyz
+|       |   |   |   |   |-- m88.xyz
+|       |   |   |   |   |-- pig.xyz
+|       |   |   |   |   |-- star.xyz
+|       |   |   |   |   |-- statue_dragon_aligned.xyz
+|       |   |   |   |   |-- statue_ramesses_aligned.xyz
+|       |   |   |   |   `-- statue_rome_aligned.xyz
+|       |   |   |   `-- input_256
+|       |   |   |       |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |       |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |       |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |       |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |       |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |       |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |       |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |       |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |       |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |       |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |       |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |       |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |       |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |       |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |       |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |       |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |       |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |       |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |       |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |       |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |       |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |       |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |       |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |       |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |       |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |       |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |       |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |       |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |       |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |       |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |       |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |       |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |       |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |       |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |       |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |       |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |       |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |       |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |       |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |       |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |       |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |       |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |       |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |       |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |       |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |       |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |       |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |       |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |       |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |       |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |       |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |       |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |       |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |       |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |       |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |       |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |       |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |       |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |       |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |       |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |       |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |       |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |       |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |       |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |       |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |       |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |       |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |       |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |       |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |       |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |       |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |       |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |       |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |       |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |       |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |       |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |       |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |       |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |       |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |       |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |       |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |       |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |       |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |       |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |       |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |       |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |       |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |       |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |       |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |       |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |       |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |       |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |       |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |       |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |       |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |       |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |       |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |       |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |       |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |       |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |       |-- 11509_Panda_v4.xyz
+|       |   |   |       |-- 13770_Tiger_V1.xyz
+|       |   |   |       |-- Gramme_aligned.xyz
+|       |   |   |       |-- camel.xyz
+|       |   |   |       |-- casting.xyz
+|       |   |   |       |-- chair.xyz
+|       |   |   |       |-- coverrear_Lp.xyz
+|       |   |   |       |-- cow.xyz
+|       |   |   |       |-- duck.xyz
+|       |   |   |       |-- eight.xyz
+|       |   |   |       |-- elephant.xyz
+|       |   |   |       |-- elk.xyz
+|       |   |   |       |-- fandisk.xyz
+|       |   |   |       |-- genus3.xyz
+|       |   |   |       |-- horse.xyz
+|       |   |   |       |-- kitten.xyz
+|       |   |   |       |-- m32.xyz
+|       |   |   |       |-- m329.xyz
+|       |   |   |       |-- m333.xyz
+|       |   |   |       |-- m355.xyz
+|       |   |   |       |-- m60.xyz
+|       |   |   |       |-- m88.xyz
+|       |   |   |       |-- pig.xyz
+|       |   |   |       |-- star.xyz
+|       |   |   |       |-- statue_dragon_aligned.xyz
+|       |   |   |       |-- statue_ramesses_aligned.xyz
+|       |   |   |       `-- statue_rome_aligned.xyz
+|       |   |   |-- input_512
+|       |   |   |   |-- gt_2048
+|       |   |   |   |   |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |   |   |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |   |   |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |   |   |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |   |   |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |   |   |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |   |   |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |   |   |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |   |   |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |   |   |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |   |   |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |   |   |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |   |   |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |   |   |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |   |   |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |   |   |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |   |   |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |   |   |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |   |   |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |   |   |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |   |   |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |   |   |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |   |   |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |   |   |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |   |   |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |   |   |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |   |   |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |   |   |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |   |   |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |   |   |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |   |   |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |   |   |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |   |   |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |   |   |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |   |   |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |   |   |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |   |   |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |   |   |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |   |   |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |   |   |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |   |   |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |   |   |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |   |   |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |   |   |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |   |   |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |   |   |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |   |   |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |   |   |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |   |   |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |   |   |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |   |   |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |   |   |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |   |   |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |   |   |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |   |   |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |   |   |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |   |   |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |   |   |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |   |   |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |   |   |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |   |   |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |   |   |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |   |   |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |   |   |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |   |   |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |   |   |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |   |   |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |   |   |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |   |   |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |   |   |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |   |   |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |   |   |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |   |   |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |   |   |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |   |   |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |   |   |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |   |   |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |   |   |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |   |   |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |   |   |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |   |   |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |   |   |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |   |   |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |   |   |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |   |   |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |   |   |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |   |   |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |   |   |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |   |   |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |   |   |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |   |   |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |   |   |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |   |   |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |   |   |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |   |   |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |   |   |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |   |   |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |   |   |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |   |   |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |   |   |-- 11509_Panda_v4.xyz
+|       |   |   |   |   |-- 13770_Tiger_V1.xyz
+|       |   |   |   |   |-- Gramme_aligned.xyz
+|       |   |   |   |   |-- camel.xyz
+|       |   |   |   |   |-- casting.xyz
+|       |   |   |   |   |-- chair.xyz
+|       |   |   |   |   |-- coverrear_Lp.xyz
+|       |   |   |   |   |-- cow.xyz
+|       |   |   |   |   |-- duck.xyz
+|       |   |   |   |   |-- eight.xyz
+|       |   |   |   |   |-- elephant.xyz
+|       |   |   |   |   |-- elk.xyz
+|       |   |   |   |   |-- fandisk.xyz
+|       |   |   |   |   |-- genus3.xyz
+|       |   |   |   |   |-- horse.xyz
+|       |   |   |   |   |-- kitten.xyz
+|       |   |   |   |   |-- m32.xyz
+|       |   |   |   |   |-- m329.xyz
+|       |   |   |   |   |-- m333.xyz
+|       |   |   |   |   |-- m355.xyz
+|       |   |   |   |   |-- m60.xyz
+|       |   |   |   |   |-- m88.xyz
+|       |   |   |   |   |-- pig.xyz
+|       |   |   |   |   |-- star.xyz
+|       |   |   |   |   |-- statue_dragon_aligned.xyz
+|       |   |   |   |   |-- statue_ramesses_aligned.xyz
+|       |   |   |   |   `-- statue_rome_aligned.xyz
+|       |   |   |   `-- input_512
+|       |   |   |       |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.xyz
+|       |   |   |       |-- 02691156.65b12fc357604a2587b2a887422ab97.xyz
+|       |   |   |       |-- 02747177.c50c72eefe225b51cb2a965e75be701c.xyz
+|       |   |   |       |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.xyz
+|       |   |   |       |-- 02773838.756066117169dbc96c1d5082d1bdea19.xyz
+|       |   |   |       |-- 02773838.cd1e74f430acfaf0504721639e19f609.xyz
+|       |   |   |       |-- 02801938.7a931ec996edbfeacb2a965e75be701c.xyz
+|       |   |   |       |-- 02801938.be3c2533130dd3da55f46d55537192b6.xyz
+|       |   |   |       |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.xyz
+|       |   |   |       |-- 02808440.e814a58e52652f43e702e0688ba77bb0.xyz
+|       |   |   |       |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.xyz
+|       |   |   |       |-- 02818832.cecc7a6677eab8accf9f37ec17841254.xyz
+|       |   |   |       |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.xyz
+|       |   |   |       |-- 02828884.dbacfce828f0598ad534c2812395a1c1.xyz
+|       |   |   |       |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.xyz
+|       |   |   |       |-- 02843684.ff90921e9631cd73c5c86021644af7b5.xyz
+|       |   |   |       |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.xyz
+|       |   |   |       |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.xyz
+|       |   |   |       |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.xyz
+|       |   |   |       |-- 02876657.a1bc36109cd382b78340c8802f48c170.xyz
+|       |   |   |       |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.xyz
+|       |   |   |       |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.xyz
+|       |   |   |       |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.xyz
+|       |   |   |       |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.xyz
+|       |   |   |       |-- 02933112.23637357c4e5efb653c80c0a3ef7382.xyz
+|       |   |   |       |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.xyz
+|       |   |   |       |-- 02942699.4700873107186c6e2203f435e9e6785.xyz
+|       |   |   |       |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.xyz
+|       |   |   |       |-- 02946921.17ef524ca4e382dd9d2ad28276314523.xyz
+|       |   |   |       |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.xyz
+|       |   |   |       |-- 02954340.254e230d31a62470a52821bf1aa3b19a.xyz
+|       |   |   |       |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.xyz
+|       |   |   |       |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.xyz
+|       |   |   |       |-- 02958343.9e52d425db48a33bbda733a39f84326d.xyz
+|       |   |   |       |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.xyz
+|       |   |   |       |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.xyz
+|       |   |   |       |-- 03046257.143e665cb61b96751311158f08f2982a.xyz
+|       |   |   |       |-- 03046257.ad385337f0737d9df546596ce7364503.xyz
+|       |   |   |       |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.xyz
+|       |   |   |       |-- 03211117.c12a485b4241be83b70b5d25a1334116.xyz
+|       |   |   |       |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.xyz
+|       |   |   |       |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.xyz
+|       |   |   |       |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.xyz
+|       |   |   |       |-- 03325088.e762df4624be42054c62bee40dcdc539.xyz
+|       |   |   |       |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.xyz
+|       |   |   |       |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.xyz
+|       |   |   |       |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.xyz
+|       |   |   |       |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.xyz
+|       |   |   |       |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.xyz
+|       |   |   |       |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.xyz
+|       |   |   |       |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.xyz
+|       |   |   |       |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.xyz
+|       |   |   |       |-- 03624134.13d183a44f143ca8c842482418ab083d.xyz
+|       |   |   |       |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.xyz
+|       |   |   |       |-- 03636649.5f24434ac22353708749901456352d5.xyz
+|       |   |   |       |-- 03636649.a11dd450220af960ca70272754aeb3c9.xyz
+|       |   |   |       |-- 03642806.7da524a31c9cfe22ea8725c845547c21.xyz
+|       |   |   |       |-- 03642806.b6b27929b34cec44125129881929616c.xyz
+|       |   |   |       |-- 03691459.70acca9ae753b952c71de83a48ed3076.xyz
+|       |   |   |       |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.xyz
+|       |   |   |       |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.xyz
+|       |   |   |       |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.xyz
+|       |   |   |       |-- 03759954.c0aaca906293380f1242824b4827fe77.xyz
+|       |   |   |       |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.xyz
+|       |   |   |       |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.xyz
+|       |   |   |       |-- 03790512.f736168c42267866eba25bbcd3786140.xyz
+|       |   |   |       |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.xyz
+|       |   |   |       |-- 03797390.85a2511c375b5b32f72755048bac3f96.xyz
+|       |   |   |       |-- 03928116.a6b26dfef15ace459e0d848896b0095f.xyz
+|       |   |   |       |-- 03928116.ce7a03d645722d503f7e27638e63d848.xyz
+|       |   |   |       |-- 03938244.89fd3acbd34e72106a6cca39468798a8.xyz
+|       |   |   |       |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.xyz
+|       |   |   |       |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.xyz
+|       |   |   |       |-- 03948459.edec08542b9312b712b38b1d99376c0b.xyz
+|       |   |   |       |-- 03991062.57202d9819dc44c67d8ecc181daf1385.xyz
+|       |   |   |       |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.xyz
+|       |   |   |       |-- 04004475.97735b38d3b229d5e8be809ecac11dd.xyz
+|       |   |   |       |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.xyz
+|       |   |   |       |-- 04090263.2eb8897f028d20bda27aa199c0989017.xyz
+|       |   |   |       |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.xyz
+|       |   |   |       |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.xyz
+|       |   |   |       |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.xyz
+|       |   |   |       |-- 04225987.94fc692e0518c0b0537d393009a79347.xyz
+|       |   |   |       |-- 04225987.95c69877104059fd1389cf37af584e4b.xyz
+|       |   |   |       |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.xyz
+|       |   |   |       |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.xyz
+|       |   |   |       |-- 04330267.298fc1492df14dbc96c91a9093ecb199.xyz
+|       |   |   |       |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.xyz
+|       |   |   |       |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.xyz
+|       |   |   |       |-- 04379243.bd39b7924b0f69359d0d74633db4834d.xyz
+|       |   |   |       |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.xyz
+|       |   |   |       |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.xyz
+|       |   |   |       |-- 04460130.17e229dbb42786e6b164f257e05e5435.xyz
+|       |   |   |       |-- 04460130.35824a59a19511c538cd8eb23853c009.xyz
+|       |   |   |       |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.xyz
+|       |   |   |       |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.xyz
+|       |   |   |       |-- 04530566.2e447f96f152a33a7428866500a95dd8.xyz
+|       |   |   |       |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.xyz
+|       |   |   |       |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.xyz
+|       |   |   |       |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.xyz
+|       |   |   |       |-- 11509_Panda_v4.xyz
+|       |   |   |       |-- 13770_Tiger_V1.xyz
+|       |   |   |       |-- Gramme_aligned.xyz
+|       |   |   |       |-- camel.xyz
+|       |   |   |       |-- casting.xyz
+|       |   |   |       |-- chair.xyz
+|       |   |   |       |-- coverrear_Lp.xyz
+|       |   |   |       |-- cow.xyz
+|       |   |   |       |-- duck.xyz
+|       |   |   |       |-- eight.xyz
+|       |   |   |       |-- elephant.xyz
+|       |   |   |       |-- elk.xyz
+|       |   |   |       |-- fandisk.xyz
+|       |   |   |       |-- genus3.xyz
+|       |   |   |       |-- horse.xyz
+|       |   |   |       |-- kitten.xyz
+|       |   |   |       |-- m32.xyz
+|       |   |   |       |-- m329.xyz
+|       |   |   |       |-- m333.xyz
+|       |   |   |       |-- m355.xyz
+|       |   |   |       |-- m60.xyz
+|       |   |   |       |-- m88.xyz
+|       |   |   |       |-- pig.xyz
+|       |   |   |       |-- star.xyz
+|       |   |   |       |-- statue_dragon_aligned.xyz
+|       |   |   |       |-- statue_ramesses_aligned.xyz
+|       |   |   |       `-- statue_rome_aligned.xyz
+|       |   |   `-- original_meshes
+|       |   |       |-- 02691156.37f2f187a1582704a29fef5d2b2f3d7.off
+|       |   |       |-- 02691156.65b12fc357604a2587b2a887422ab97.off
+|       |   |       |-- 02747177.c50c72eefe225b51cb2a965e75be701c.off
+|       |   |       |-- 02747177.f76b14ffc2fe6c7485eb407ec5a0fadd.off
+|       |   |       |-- 02773838.756066117169dbc96c1d5082d1bdea19.off
+|       |   |       |-- 02773838.cd1e74f430acfaf0504721639e19f609.off
+|       |   |       |-- 02801938.7a931ec996edbfeacb2a965e75be701c.off
+|       |   |       |-- 02801938.be3c2533130dd3da55f46d55537192b6.off
+|       |   |       |-- 02808440.18a3dd79ce17724bfe52ffd0e748a1ab.off
+|       |   |       |-- 02808440.e814a58e52652f43e702e0688ba77bb0.off
+|       |   |       |-- 02818832.6df4a4c52c90d70d438e4ded908f7146.off
+|       |   |       |-- 02818832.cecc7a6677eab8accf9f37ec17841254.off
+|       |   |       |-- 02828884.2b065fc9d62f1540ad5067eac75a07f7.off
+|       |   |       |-- 02828884.dbacfce828f0598ad534c2812395a1c1.off
+|       |   |       |-- 02843684.e49629ce9c305ea6c725388bb41d64e3.off
+|       |   |       |-- 02843684.ff90921e9631cd73c5c86021644af7b5.off
+|       |   |       |-- 02871439.a65e62186ca1b1eea58c3abb1c7c441b.off
+|       |   |       |-- 02871439.b7b5978bbb72747f9a2615537bdd5695.off
+|       |   |       |-- 02876657.29cad22b0fc6c9985f16c469ffeb982e.off
+|       |   |       |-- 02876657.a1bc36109cd382b78340c8802f48c170.off
+|       |   |       |-- 02880940.ae5c7d8a453d3ef736b0f2a1430e993a.off
+|       |   |       |-- 02880940.cfac22c8ca3339b83ce5cb00b21d9584.off
+|       |   |       |-- 02924116.75fc875e3d2bd8fbf01129d246a5d1a5.off
+|       |   |       |-- 02924116.d23dfcd55f78a48041cefd10ce5d6cc0.off
+|       |   |       |-- 02933112.23637357c4e5efb653c80c0a3ef7382.off
+|       |   |       |-- 02933112.c4802a2901dcd6e84da5feafe6f1c8fc.off
+|       |   |       |-- 02942699.4700873107186c6e2203f435e9e6785.off
+|       |   |       |-- 02942699.b27815a2bde54ad3ab3dfa44f5fab01.off
+|       |   |       |-- 02946921.17ef524ca4e382dd9d2ad28276314523.off
+|       |   |       |-- 02946921.38dd2a8d2c984e2b6c1cd53dbc9f7b8e.off
+|       |   |       |-- 02954340.254e230d31a62470a52821bf1aa3b19a.off
+|       |   |       |-- 02954340.40f0c6599f0be25fce01c07526cf2aa4.off
+|       |   |       |-- 02958343.3776e4d1e2587fd3253c03b7df20edd5.off
+|       |   |       |-- 02958343.9e52d425db48a33bbda733a39f84326d.off
+|       |   |       |-- 03001627.720fd0a6c8cf65e772ee08e78374a212.off
+|       |   |       |-- 03001627.7eb7574764b397c3e87e9b3f41906a3d.off
+|       |   |       |-- 03046257.143e665cb61b96751311158f08f2982a.off
+|       |   |       |-- 03046257.ad385337f0737d9df546596ce7364503.off
+|       |   |       |-- 03211117.7cff26e6dc84bd02c598d38a6a69ad2.off
+|       |   |       |-- 03211117.c12a485b4241be83b70b5d25a1334116.off
+|       |   |       |-- 03261776.56c4d7e643d6a7286329e8c7b28434da.off
+|       |   |       |-- 03261776.91a17b47f79aca8b2ed3579bacedc134.off
+|       |   |       |-- 03325088.5ba6bb8365b474f773ecd661ad15c4dd.off
+|       |   |       |-- 03325088.e762df4624be42054c62bee40dcdc539.off
+|       |   |       |-- 03337140.4374f1908ef835b1b25f5f33b0704a5d.off
+|       |   |       |-- 03337140.7ac63d16fe21f2a491c352d02061b3f7.off
+|       |   |       |-- 03467517.3243edb05f5e8803ac61a2f8346a8f.off
+|       |   |       |-- 03467517.900c3823f47a8ad1d57700c05b1862d8.off
+|       |   |       |-- 03513137.7f8767aac7a5bbefef6f32a2a0bd4e8f.off
+|       |   |       |-- 03513137.854adc84a21c0a1de8fe5a1391785bf6.off
+|       |   |       |-- 03593526.26b9ede17422ff5b84cd259bd328e92a.off
+|       |   |       |-- 03593526.98317e58cb7f2c5c598a453fd9fbd988.off
+|       |   |       |-- 03624134.13d183a44f143ca8c842482418ab083d.off
+|       |   |       |-- 03624134.ff949d2335a226fde1c0dc67e69df88e.off
+|       |   |       |-- 03636649.5f24434ac22353708749901456352d5.off
+|       |   |       |-- 03636649.a11dd450220af960ca70272754aeb3c9.off
+|       |   |       |-- 03642806.7da524a31c9cfe22ea8725c845547c21.off
+|       |   |       |-- 03642806.b6b27929b34cec44125129881929616c.off
+|       |   |       |-- 03691459.70acca9ae753b952c71de83a48ed3076.off
+|       |   |       |-- 03691459.e7af5657b90b9a73558880eed6ddb84a.off
+|       |   |       |-- 03710193.5a81ffe8b9acace8e51d90f0237045d2.off
+|       |   |       |-- 03710193.d80f223e5e1c96d8e4ae8899818510b8.off
+|       |   |       |-- 03759954.c0aaca906293380f1242824b4827fe77.off
+|       |   |       |-- 03759954.ed1328cfa8749bb8d80ce3f2fd66be0.off
+|       |   |       |-- 03790512.8cf5bd117e04da6d6a3456c0ab5674a9.off
+|       |   |       |-- 03790512.f736168c42267866eba25bbcd3786140.off
+|       |   |       |-- 03797390.3c0467f96e26b8c6a93445a1757adf6.off
+|       |   |       |-- 03797390.85a2511c375b5b32f72755048bac3f96.off
+|       |   |       |-- 03928116.a6b26dfef15ace459e0d848896b0095f.off
+|       |   |       |-- 03928116.ce7a03d645722d503f7e27638e63d848.off
+|       |   |       |-- 03938244.89fd3acbd34e72106a6cca39468798a8.off
+|       |   |       |-- 03938244.f3833476297f19c664b3b9b23ddfcbc.off
+|       |   |       |-- 03948459.b3ea2d0331ec9ec650544cd7fa263944.off
+|       |   |       |-- 03948459.edec08542b9312b712b38b1d99376c0b.off
+|       |   |       |-- 03991062.57202d9819dc44c67d8ecc181daf1385.off
+|       |   |       |-- 03991062.7ade1ebc752ac3a1713f2e93cbeac35d.off
+|       |   |       |-- 04004475.97735b38d3b229d5e8be809ecac11dd.off
+|       |   |       |-- 04004475.d0ee507ba98a89525df8d70b74fdbdb5.off
+|       |   |       |-- 04090263.2eb8897f028d20bda27aa199c0989017.off
+|       |   |       |-- 04090263.b3e73818cd2e03c080149f7d680e9c1a.off
+|       |   |       |-- 04099429.d781243cc1d1d2e91a0ec553feb1c2c3.off
+|       |   |       |-- 04099429.e04bda8655d9e606ebcdf982796b4fa.off
+|       |   |       |-- 04225987.94fc692e0518c0b0537d393009a79347.off
+|       |   |       |-- 04225987.95c69877104059fd1389cf37af584e4b.off
+|       |   |       |-- 04256520.48acfed2c1f2d42cbd16d4490a10a752.off
+|       |   |       |-- 04256520.a4ecec332f0ac0d22906e6acfda251cd.off
+|       |   |       |-- 04330267.298fc1492df14dbc96c91a9093ecb199.off
+|       |   |       |-- 04330267.ae6e6b33ef0f78d8c9a835319c0150eb.off
+|       |   |       |-- 04379243.bc38dd123d9d50ad8b17d6d1965c2fb6.off
+|       |   |       |-- 04379243.bd39b7924b0f69359d0d74633db4834d.off
+|       |   |       |-- 04401088.58ece48e59781da1fd0a2086d631b6a0.off
+|       |   |       |-- 04401088.9f3ad4e5f16f40b3d0f9f958bc79097c.off
+|       |   |       |-- 04460130.17e229dbb42786e6b164f257e05e5435.off
+|       |   |       |-- 04460130.35824a59a19511c538cd8eb23853c009.off
+|       |   |       |-- 04468005.52dacb5f2a7118d2aa28dc6884266713.off
+|       |   |       |-- 04468005.efcf0fbc2d749875f18e4d26315469b1.off
+|       |   |       |-- 04530566.2e447f96f152a33a7428866500a95dd8.off
+|       |   |       |-- 04530566.e456eded209aac05a8b0c9e2ebd8eeb.off
+|       |   |       |-- 04554684.725bbfc557d3e1b9b5af85a5be833ee.off
+|       |   |       |-- 04554684.957ddf9eb718876dc2180858eb6a5f28.off
+|       |   |       |-- 11509_Panda_v4.off
+|       |   |       |-- 13770_Tiger_V1.off
+|       |   |       |-- Gramme_aligned.off
+|       |   |       |-- camel.off
+|       |   |       |-- casting.off
+|       |   |       |-- chair.off
+|       |   |       |-- coverrear_Lp.off
+|       |   |       |-- cow.off
+|       |   |       |-- duck.off
+|       |   |       |-- eight.off
+|       |   |       |-- elephant.off
+|       |   |       |-- elk.off
+|       |   |       |-- fandisk.off
+|       |   |       |-- genus3.off
+|       |   |       |-- horse.off
+|       |   |       |-- kitten.off
+|       |   |       |-- m32.off
+|       |   |       |-- m329.off
+|       |   |       |-- m333.off
+|       |   |       |-- m355.off
+|       |   |       |-- m60.off
+|       |   |       |-- m88.off
+|       |   |       |-- pig.off
+|       |   |       |-- star.off
+|       |   |       |-- statue_dragon_aligned.off
+|       |   |       |-- statue_ramesses_aligned.off
+|       |   |       `-- statue_rome_aligned.off
+|       |   `-- train
+|       |       `-- pu1k_poisson_256_poisson_1024_pc_2500_patch50_addpugan.h5
+|       |-- env_install.sh
+|       |-- evaluate.py
+|       |-- evaluation_code
+|       |   |-- CMakeLists.txt
+|       |   |-- Icosahedron.off
+|       |   |-- Icosahedron.xyz
+|       |   |-- __init__.py
+|       |   |-- compile.sh
+|       |   |-- eval_pu1k.sh
+|       |   |-- evaluation.cpp
+|       |   |-- readme.txt
+|       |   `-- utils
+|       |       |-- eulerangles.py
+|       |       |-- logger.py
+|       |       |-- misc.py
+|       |       |-- model_utils.py
+|       |       |-- pc_util.py
+|       |       `-- tf_util.py
+|       |-- main.py
+|       |-- test_pu1k.sh
+|       |-- test_pu1k_allmodels.sh
+|       |-- test_realscan.sh
+|       |-- test_realscan_allmodels.sh
+|       |-- tf_lib
+|       |   |-- __init__.py
+|       |   |-- common
+|       |   |   |-- __init__.py
+|       |   |   `-- tf_nn.py
+|       |   |-- gcn_lib
+|       |   |   |-- __init__.py
+|       |   |   |-- edge.py
+|       |   |   `-- vertex.py
+|       |   `-- pc_viz.py
+|       |-- tf_ops
+|       |   |-- __init__.py
+|       |   |-- approxmatch
+|       |   |   |-- __init__.py
+|       |   |   |-- tf_approxmatch.cpp
+|       |   |   |-- tf_approxmatch.py
+|       |   |   |-- tf_approxmatch_compile.sh
+|       |   |   `-- tf_approxmatch_g.cu
+|       |   |-- compile.sh
+|       |   |-- grouping
+|       |   |   |-- __init__.py
+|       |   |   |-- compile.sh
+|       |   |   |-- query_ball_point.cpp
+|       |   |   |-- query_ball_point.cu
+|       |   |   |-- query_ball_point_block.cu
+|       |   |   |-- query_ball_point_grid.cu
+|       |   |   |-- selection_sort
+|       |   |   |-- selection_sort.cpp
+|       |   |   |-- selection_sort.cu
+|       |   |   |-- selection_sort_const.cu
+|       |   |   |-- selection_sort_cuda
+|       |   |   |-- test_knn.py
+|       |   |   |-- tf_grouping.cpp
+|       |   |   |-- tf_grouping.py
+|       |   |   |-- tf_grouping_compile.sh
+|       |   |   `-- tf_grouping_g.cu
+|       |   |-- interpolation
+|       |   |   |-- __init__.py
+|       |   |   |-- interpolate.cpp
+|       |   |   |-- tf_interpolate.cpp
+|       |   |   |-- tf_interpolate.py
+|       |   |   |-- tf_interpolate_compile.sh
+|       |   |   |-- tf_interpolate_op_test.py
+|       |   |   `-- visu_interpolation.py
+|       |   |-- nn_distance
+|       |   |   |-- README.md
+|       |   |   |-- __init__.py
+|       |   |   |-- tf_nndistance.cpp
+|       |   |   |-- tf_nndistance.py
+|       |   |   |-- tf_nndistance_compile.sh
+|       |   |   |-- tf_nndistance_cpu.py
+|       |   |   `-- tf_nndistance_g.cu
+|       |   |-- renderball
+|       |   |   |-- compile_render_balls_so.sh
+|       |   |   `-- render_balls_so.cpp
+|       |   `-- sampling
+|       |       |-- 1.pkl
+|       |       |-- __init__.py
+|       |       |-- tf_sampling.cpp
+|       |       |-- tf_sampling.py
+|       |       |-- tf_sampling_compile.sh
+|       |       `-- tf_sampling_g.cu
+|       `-- vis_benchmark.py
+|-- DockerInstructions
+|-- LICENSE
+|-- README.md
+|-- assets
+|   |-- kitti_example.png
+|   `-- pudm.png
+|-- build
+|   |-- bdist.linux-x86_64
+|   `-- lib
+|       |-- pointnet2
+|       |   |-- __init__.py
+|       |   |-- _version.py
+|       |   |-- dataset.py
+|       |   |-- eval.py
+|       |   |-- example_eval.py
+|       |   |-- example_samples.py
+|       |   |-- json_reader.py
+|       |   |-- models
+|       |   |   |-- __init__.py
+|       |   |   |-- model_utils.py
+|       |   |   |-- pnet.py
+|       |   |   |-- pointnet2_ssg_sem.py
+|       |   |   `-- pointnet2_with_pcld_condition.py
+|       |   |-- samples.py
+|       |   |-- train.py
+|       |   `-- util.py
+|       `-- pointops
+|           |-- __init__.py
+|           |-- functions
+|           |   |-- __init__.py
+|           |   `-- pointops.py
+|           |-- setup.py
+|           `-- src
+|               |-- __init__.py
+|               |-- knnquery
+|               |   `-- __init__.py
+|               `-- knnquery_heap
+|                   `-- __init__.py
+|-- compile.sh
+|-- dist
+|   `-- pointnet2-3.0.0-py3.7.egg
+|-- dockerfile
+|-- pointnet2
+|   |-- __init__.py
+|   |-- __pycache__
+|   |   `-- dataset.cpython-37.pyc
+|   |-- _version.py
+|   |-- dataloader
+|   |   |-- __pycache__
+|   |   |   `-- dataset_loader.cpython-37.pyc
+|   |   |-- dataset_loader.py
+|   |   |-- dataset_utils.py
+|   |   `-- prepare_dataset.py
+|   |-- dataset.py
+|   |-- eval.py
+|   |-- example
+|   |   |-- KITTI.xyz
+|   |   |-- ScanNet.xyz
+|   |   |-- pig.xyz
+|   |   |-- pig_Gaussian_noise_0.01.xyz
+|   |   |-- pig_Gaussian_noise_0.02.xyz
+|   |   |-- pig_Gaussian_noise_0.05.xyz
+|   |   |-- pig_Gaussian_noise_0.1.xyz
+|   |   |-- pig_laplace_noise_0.05.xyz
+|   |   |-- pig_laplace_noise_0.1.xyz
+|   |   |-- pig_poisson_noise_0.05.xyz
+|   |   |-- pig_poisson_noise_0.1.xyz
+|   |   |-- pig_random_noise_0.05.xyz
+|   |   `-- pig_random_noise_0.1.xyz
+|   |-- example_eval.py
+|   |-- example_samples.py
+|   |-- exp_configs
+|   |   |-- PU1K.json
+|   |   `-- PUGAN.json
+|   |-- json_reader.py
+|   |-- models
+|   |   |-- __init__.py
+|   |   |-- model_utils.py
+|   |   |-- pnet.py
+|   |   |-- pointnet2_ssg_sem.py
+|   |   `-- pointnet2_with_pcld_condition.py
+|   |-- pkls
+|   |   `-- Please\ put\ the\ checkpoints\ in\ the\ current\ folder.txt
+|   |-- samples.py
+|   |-- train.py
+|   `-- util.py
+|-- pointnet2.egg-info
+|   |-- PKG-INFO
+|   |-- SOURCES.txt
+|   |-- dependency_links.txt
+|   |-- requires.txt
+|   `-- top_level.txt
+|-- pointnet2_ops_lib
+|   |-- pointnet2_ops
+|   |   |-- __init__.py
+|   |   |-- _ext-src
+|   |   |   |-- include
+|   |   |   |   |-- ball_query.h
+|   |   |   |   |-- cuda_utils.h
+|   |   |   |   |-- group_points.h
+|   |   |   |   |-- interpolate.h
+|   |   |   |   |-- sampling.h
+|   |   |   |   `-- utils.h
+|   |   |   `-- src
+|   |   |       |-- ball_query.cpp
+|   |   |       |-- ball_query_gpu.cu
+|   |   |       |-- bindings.cpp
+|   |   |       |-- group_points.cpp
+|   |   |       |-- group_points_gpu.cu
+|   |   |       |-- interpolate.cpp
+|   |   |       |-- interpolate_gpu.cu
+|   |   |       |-- sampling.cpp
+|   |   |       `-- sampling_gpu.cu
+|   |   |-- _version.py
+|   |   |-- attention.py
+|   |   |-- pointnet2_modules.py
+|   |   `-- pointnet2_utils.py
+|   `-- setup.py
+|-- pointops
+|   |-- __init__.py
+|   |-- functions
+|   |   |-- __init__.py
+|   |   `-- pointops.py
+|   |-- setup.py
+|   `-- src
+|       |-- __init__.py
+|       |-- ballquery
+|       |   |-- ballquery_cuda.cpp
+|       |   |-- ballquery_cuda_kernel.cu
+|       |   `-- ballquery_cuda_kernel.h
+|       |-- cuda_utils.h
+|       |-- featuredistribute
+|       |   |-- featuredistribute_cuda.cpp
+|       |   |-- featuredistribute_cuda_kernel.cu
+|       |   `-- featuredistribute_cuda_kernel.h
+|       |-- grouping
+|       |   |-- grouping_cuda.cpp
+|       |   |-- grouping_cuda_kernel.cu
+|       |   `-- grouping_cuda_kernel.h
+|       |-- grouping_int
+|       |   |-- grouping_int_cuda.cpp
+|       |   |-- grouping_int_cuda_kernel.cu
+|       |   `-- grouping_int_cuda_kernel.h
+|       |-- interpolation
+|       |   |-- interpolation_cuda.cpp
+|       |   |-- interpolation_cuda_kernel.cu
+|       |   `-- interpolation_cuda_kernel.h
+|       |-- knnquery
+|       |   |-- __init__.py
+|       |   |-- knnquery_cuda.cpp
+|       |   |-- knnquery_cuda_kernel.cu
+|       |   `-- knnquery_cuda_kernel.h
+|       |-- knnquery_heap
+|       |   |-- __init__.py
+|       |   |-- knnquery_heap_cuda.cpp
+|       |   |-- knnquery_heap_cuda_kernel.cu
+|       |   `-- knnquery_heap_cuda_kernel.h
+|       |-- labelstat
+|       |   |-- labelstat_cuda.cpp
+|       |   |-- labelstat_cuda_kernel.cu
+|       |   `-- labelstat_cuda_kernel.h
+|       |-- pointops_api.cpp
+|       `-- sampling
+|           |-- sampling_cuda.cpp
+|           |-- sampling_cuda_kernel.cu
+|           `-- sampling_cuda_kernel.h
+|-- remove.sh
+|-- repo_heirarchy.txt
+|-- setup.py
+`-- setup_pudm.sh
+
+138 directories, 1838 files

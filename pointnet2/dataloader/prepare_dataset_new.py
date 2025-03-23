@@ -103,7 +103,7 @@ if __name__ == '__main__':
                 input_pts = add_random_noise(input_pts, sigma=args.noise_level, clamp=args.jitter_max)
             elif args.noise_type == "laplace":
                 input_pts = add_laplace_noise(input_pts, sigma=args.noise_level, clamp=args.jitter_max)
-            elif args.noise_type == "poisson":  # Fix typo
+            elif args.noise_type == "poisson": 
                 input_pts = add_poisson_noise(input_pts, sigma=args.noise_level, clamp=args.jitter_max)
             input_pts = centroid + input_pts * furthest_distance
             input_pts = rearrange(input_pts.squeeze(0), 'c n -> n c').contiguous()

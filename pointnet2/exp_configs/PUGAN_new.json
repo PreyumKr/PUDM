@@ -1,10 +1,10 @@
 {
     "diffusion_config": {
-        "T": 1000,
-        "beta_0": 0.0001,
-        "beta_T": 0.02
+        "T": 100,           
+        "beta_0": 0.0001,   
+        "beta_T": 0.02     
     },
-    "pointnet_config": {
+    "pointnet_config": {   
         "model_name": "pointnet",
         "in_fea_dim": 3,
         "partial_in_fea_dim": 0,
@@ -19,21 +19,17 @@
         "bn_first": false,
         "bias": true,
         "res_connect": true,
-        "map_type" : "cross_attention",
-        "condition_loss" : true,
-
+        "map_type": "cross_attention",
+        "condition_loss": true,
         "include_class_condition": true,
         "num_class": 256,
         "class_condition_dim": 128,
         "gamma": 0.5,
-
         "bn": true,
-
         "include_local_feature": true,
         "include_global_feature": true,
         "global_feature_remove_last_activation": false,
         "pnet_global_feature_architecture": "[[3, 128, 256], [512, 1024]]",
-
         "attention_setting": {
             "use_attention_module": true,
             "attention_bn": true,
@@ -79,25 +75,35 @@
             "decoder_nsample": "[32, 32, 32, 32, 32]"
         }
     },
+    "discriminator_config": {   
+        "model_name": "pointnet_discriminator",
+        "in_fea_dim": 3,        
+        "feature_dims": [64, 128, 256],  
+        "fc_dims": [128, 64, 1],       
+        "bn": true,                  
+        "activation": "relu"            
+    },
     "train_config": {
         "dataset": "PUGAN",
         "root_directory": "exp_pugan",
         "output_directory": "logs/checkpoint",
         "tensorboard_directory": "logs/tensorboard",
-        "epochs_per_ckpt": 1,  
+        "epochs_per_ckpt": 10,
         "iters_per_logging": 50,
-        "n_epochs": 1,
-        "learning_rate": 0.0002
+        "n_epochs": 1000,           
+        "g_learning_rate": 0.0002,  
+        "d_learning_rate": 0.0004,  
+        "recon_loss_weight": 0.1    
     },
-    "pugan_dataset_config": {
+    "pugan_dataset_config": {       
         "dataset": "PUGAN",
-        "data_dir": "/app/Dataset/PU-GAN/data",
+        "data_dir": "/home/preyum.kumar/Thesis_Work/DenDiffGan_SuperRes/PUDM/Dataset/PU-GAN/data",
         "npoints": 2048,
         "novel_input": false,
         "novel_input_only": false,
         "scale": 1,
-        "batch_size": 32,
-        "eval_batch_size": 32,
+        "batch_size": 28,
+        "eval_batch_size": 28,
         "num_workers": 4,
         "num_samples_tested": 1600,
         "test_trainset_during_eval": true,
@@ -113,7 +119,7 @@
         },
         "R": 4
     },
-    "gen_config": {
-        "ckpt_path": "/app/pointnet2/exp_pugan/PUGAN/logs/checkpoint/pointnet_ckpt_21_0.116821.pkl"
+    "gen_config": {                
+        "ckpt_path": "logs/checkpoint"
     }
 }

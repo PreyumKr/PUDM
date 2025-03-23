@@ -1,3 +1,4 @@
+
 import argparse
 import json
 import torch
@@ -8,6 +9,7 @@ import os
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 
 from util import rescale, find_max_epoch, sampling, calc_diffusion_hyperparams, AverageMeter, set_seed
 from models.pointnet2_with_pcld_condition import PointNet2CloudCondition
@@ -88,6 +90,7 @@ def main(
 
     return CD_loss, HD_loss, P2F_loss
 
+
 if __name__ == "__main__":
 
     set_seed(42)
@@ -108,10 +111,10 @@ if __name__ == "__main__":
     parser.add_argument('--device_ids', type=str, default=device_ids, help='gpu device indices to use')
     parser.add_argument('--gamma', type=float, default=gamma)
     parser.add_argument('--step', type=int, default=step)
-    parser.add_argument('--checkpoint_path', type=str, default=f"./pkls/{dataset.lower()}.pkl", help='path to the checkpoint file')
     args = parser.parse_args()
 
     args.config = f"./exp_configs/{args.dataset}.json"
+    args.checkpoint_path = f"./pkls/{args.dataset.lower()}.pkl"
     args.save_dir = f"./test/{args.dataset.lower()}"
 
     os.environ['CUDA_VISIBLE_DEVICES'] = args.device_ids
@@ -149,3 +152,4 @@ if __name__ == "__main__":
             R=args.R,
             step=args.step
         )
+

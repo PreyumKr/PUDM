@@ -1,0 +1,14 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Build artifacts
+*.egg-info/
+dist/
+lib/
+info/
+
+# Large data and generated files
+Dataset/
+pointnet2/exp_pugan/
+pointnet2/test/

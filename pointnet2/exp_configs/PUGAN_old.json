@@ -84,9 +84,9 @@
         "root_directory": "exp_pugan",
         "output_directory": "logs/checkpoint",
         "tensorboard_directory": "logs/tensorboard",
-        "epochs_per_ckpt": 1,  
+        "epochs_per_ckpt": 10,  
         "iters_per_logging": 50,
-        "n_epochs": 1,
+        "n_epochs": 2000,
         "learning_rate": 0.0002
     },
     "pugan_dataset_config": {
@@ -96,8 +96,8 @@
         "novel_input": false,
         "novel_input_only": false,
         "scale": 1,
-        "batch_size": 32,
-        "eval_batch_size": 32,
+        "batch_size": 28,
+        "eval_batch_size": 28,
         "num_workers": 4,
         "num_samples_tested": 1600,
         "test_trainset_during_eval": true,
@@ -114,6 +114,6 @@
         "R": 4
     },
     "gen_config": {
-        "ckpt_path": "/app/pointnet2/exp_pugan/PUGAN/logs/checkpoint/pointnet_ckpt_21_0.116821.pkl"
+        "ckpt_path": "logs/checkpoint"
     }
 }

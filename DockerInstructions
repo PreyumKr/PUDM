@@ -1,0 +1,16 @@
+docker run -d --gpus all -v "$(pwd)":/app -w /app --name pudm_container pudm_image:latest tail -f /dev/null
+
+docker run -d --gpus all -v "$(pwd)":/app -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -w /app --name pudm_container pudm_image:latest tail -f /dev/null
+
+docker exec -it pudm_container bash
+chmod +x setup_pudm.sh
+./setup_pudm.sh
+
+chown -R 1048:1051 /app #hamilton
+chown -R 1001:1001 /app #cvigsystem
+
+python prepare_dataset.py --input_pts_num 2048 --R 4 --mesh_dir /app/Dataset/PU-GAN/data/mesh/test --save_dir /app/Dataset/PU-GAN/data/test
+
+python train.py --dataset PUGAN
+
+python samples.py --dataset PUGAN --R 4 --step 30 --batch_size 14 --checkpoint_path /app/pointnet2/exp_pugan/PUGAN/logs/checkpoint/pointnet_ckpt_21_0.116821.pkl --device_ids 0
